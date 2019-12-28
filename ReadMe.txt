@@ -32,6 +32,7 @@ This is a console based application, developed in Visual Studio 2017 environment
 
 -> 2.1.3 Pressing number key 3 will display the dividends in prescribed format as per the betting result
 -> 2.1.4 Pressing number key 4 will reset the all previously stored bets and result i.e. all inputs will be removed from memory
+	-> NOTE: Please use this step only when you want to remove all previous inputs and start fresh
 -> 2.1.5 Pressing number key 5 will close/quit the application
 
 =========================================================================================================
@@ -68,7 +69,7 @@ There are 4 assenblies in the solution i.e ToteBetting.PL, ToteBetting.BL, ToteB
 	-> The InstanceCreator class creates the instance of the ListCollectionDataStore.
 	-> The class BlAccessor provides functionality for interfacing with BL or any external component.
 
-3.3 ToteBetting.UnitTest [dll]
+3.4 ToteBetting.UnitTest [dll]
 	-> This is the Unit Test assembly.
 	-> All Unit Tests run with each build.
 	-> If all tests are passed then build will be success otherwise failure.
