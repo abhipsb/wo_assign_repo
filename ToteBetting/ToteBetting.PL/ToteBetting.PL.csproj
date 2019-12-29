@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Providers\IFormattedOutputDataProvider.cs" />
     <Compile Include="Providers\MenuProvider.cs" />
+    <Compile Include="Providers\FormattedOutputDataProvider.cs" />
     <Compile Include="Ui\UserInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

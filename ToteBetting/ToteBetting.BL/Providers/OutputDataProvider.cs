@@ -1,6 +1,6 @@
 ﻿namespace ToteBetting.BL.Providers
 {
-    using System.Linq;
+    using System.Collections.Generic;
     using ToteBetting.BL.Data;
     using ToteBetting.BL.Interfaces;
 
@@ -9,106 +9,27 @@
     /// </summary>
     internal class OutputDataProvider : IOutputDataProvider
     {
-        /// <inheritdoc />
-        public string OutputData => GetFormattedDataForOutput();
+        /// <inheritdoc/>
+        public IDictionary<int, double> GetWinDividend => GetDividend(ProductData.WinCode);
+        public IDictionary<int, double> GetPlaceDividend => GetDividend(ProductData.PlaceCode);
+        public IDictionary<int, double> GetExactaDividend => GetDividend(ProductData.ExactaCode);
+        public IDictionary<int, double> GetQuinellaDividend => GetDividend(ProductData.QuinellaCode);
 
-        /// <summary>
-        /// Make the formatted data
-        /// </summary>
-        private string GetFormattedDataForOutput()
+        private IDictionary<int, double> GetDividend(string code)
         {
-            string formattedData = GetFormattedWinDataForOutput() + GetFormattedPlaceDataForOutput() +
-                            GetFormattedExactaDataForOutput() + GetFormattedQuinellaDataForOutput();
-            return formattedData == string.Empty ? "Not enough data available" : formattedData;
-        }
-
-        private string GetFormattedWinDataForOutput()
-        {
-            string formattedData = string.Empty;
             if (ProductData.ProductsHost == null || ProductData.ProductsHost.Count == 0)
             {
-                return formattedData;
+                return new Dictionary<int, double>();
             }
 
-            IProduct bettingProduct = (IProduct)ProductData.ProductsHost[ProductData.WinCode];
+            IProduct bettingProduct = (IProduct)ProductData.ProductsHost[code];
             var dividends = bettingProduct.GetDividend();
-            if (dividends == null || dividends.Count == 0)
+            if (dividends == null)
             {
-                return formattedData;
+                return new Dictionary<int, double>();
             }
 
-            formattedData = "Win - Runner " + bettingProduct.GetDividend().Keys.ToList()[0] + " - " +
-                                bettingProduct.GetDividend().Values.ToList()[0] + "\n";
-            return formattedData;
-        }
-
-        private string GetFormattedPlaceDataForOutput()
-        {
-            string formattedData = string.Empty;
-            if (ProductData.ProductsHost == null || ProductData.ProductsHost.Count == 0)
-            {
-                return formattedData;
-            }
-
-            IProduct bettingProduct = (IProduct) ProductData.ProductsHost[ProductData.PlaceCode];
-            var dividends = bettingProduct.GetDividend();
-            if (dividends == null || dividends.Count == 0)
-            {
-                return formattedData;
-            }
-
-            formattedData = formattedData + "Place - Runner " + bettingProduct.GetDividend().Keys.ToList()[0] +
-                            " - " +
-                            bettingProduct.GetDividend().Values.ToList()[0] + "\n";
-            formattedData = formattedData + "Place - Runner " + bettingProduct.GetDividend().Keys.ToList()[1] +
-                            " - " +
-                            bettingProduct.GetDividend().Values.ToList()[1] + "\n";
-            formattedData = formattedData + "Place - Runner " + bettingProduct.GetDividend().Keys.ToList()[2] +
-                            " - " +
-                            bettingProduct.GetDividend().Values.ToList()[2] + "\n";
-            return formattedData;
-        }
-
-        private string GetFormattedExactaDataForOutput()
-        {
-            string formattedData = string.Empty;
-            if (ProductData.ProductsHost == null || ProductData.ProductsHost.Count == 0)
-            {
-                return formattedData;
-            }
-
-            IProduct bettingProduct = (IProduct) ProductData.ProductsHost[ProductData.ExactaCode];
-            var dividends = bettingProduct.GetDividend();
-            if (dividends == null || dividends.Count == 0)
-            {
-                return formattedData;
-            }
-
-            formattedData = formattedData + "Exacta - Runners " + bettingProduct.GetDividend().Keys.ToList()[0] +
-                            ", " + bettingProduct.GetDividend().Keys.ToList()[1] + " - " +
-                            bettingProduct.GetDividend().Values.ToList()[0] + "\n";
-            return formattedData;
-        }
-
-        private string GetFormattedQuinellaDataForOutput()
-        {
-            string formattedData = string.Empty;
-            if (ProductData.ProductsHost == null || ProductData.ProductsHost.Count == 0)
-            {
-                return formattedData;
-            }
-
-            IProduct bettingProduct = (IProduct) ProductData.ProductsHost[ProductData.QuinellaCode];
-            var dividends = bettingProduct.GetDividend();
-            if (dividends == null || dividends.Count == 0)
-            {
-                return formattedData;
-            }
-
-            formattedData = formattedData + "Quinella - Runners " + bettingProduct.GetDividend().Keys.ToList()[0] +
-                            ", " + bettingProduct.GetDividend().Keys.ToList()[1] + " - " +
-                            bettingProduct.GetDividend().Values.ToList()[0] + "\n";
-            return formattedData;
+            return dividends;
         }
     }
 }

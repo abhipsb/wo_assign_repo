@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ToteBetting.UnitTest
+﻿namespace ToteBetting.UnitTest
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using ToteBetting.BL.Creator;
@@ -26,7 +24,10 @@ namespace ToteBetting.UnitTest
         {
             var provider = InstanceCreator.CreateOutputDataProvider() as IOutputDataProvider;
             Assert.IsNotNull(provider);
-            var data = provider.OutputData;
+            Assert.IsTrue(provider.GetWinDividend.Count == 0);
+            Assert.IsTrue(provider.GetPlaceDividend.Count == 0);
+            Assert.IsTrue(provider.GetExactaDividend.Count == 0);
+            Assert.IsTrue(provider.GetQuinellaDividend.Count == 0);
         }
 
         [TestMethod]
@@ -34,7 +35,10 @@ namespace ToteBetting.UnitTest
         {            
             var provider = BlAccessor.GetOutputDataProvider() as IOutputDataProvider;
             Assert.IsNotNull(provider);
-            var data = provider.OutputData;
+            Assert.IsTrue(provider.GetWinDividend.Count == 0);
+            Assert.IsTrue(provider.GetPlaceDividend.Count == 0);
+            Assert.IsTrue(provider.GetExactaDividend.Count == 0);
+            Assert.IsTrue(provider.GetQuinellaDividend.Count == 0);
         }
 
         [TestMethod]
@@ -49,7 +53,10 @@ namespace ToteBetting.UnitTest
 
             var provider = BlAccessor.GetOutputDataProvider() as IOutputDataProvider;
             Assert.IsNotNull(provider);
-            var data = provider.OutputData;
+            Assert.IsTrue(provider.GetWinDividend.Count != 0);
+            Assert.IsTrue(provider.GetPlaceDividend.Count != 0);
+            Assert.IsTrue(provider.GetExactaDividend.Count != 0);
+            Assert.IsTrue(provider.GetQuinellaDividend.Count != 0);
         }
 
         [TestMethod]
@@ -62,7 +69,7 @@ namespace ToteBetting.UnitTest
 
             var provider = BlAccessor.GetOutputDataProvider() as IOutputDataProvider;
             Assert.IsNotNull(provider);
-            var data = provider.OutputData;
+            Assert.IsTrue(provider.GetWinDividend.Count != 0);
         }
 
         [TestMethod]
@@ -75,7 +82,7 @@ namespace ToteBetting.UnitTest
 
             var provider = BlAccessor.GetOutputDataProvider() as IOutputDataProvider;
             Assert.IsNotNull(provider);
-            var data = provider.OutputData;
+            Assert.IsTrue(provider.GetPlaceDividend.Count != 0);
         }
 
         [TestMethod]
@@ -88,7 +95,7 @@ namespace ToteBetting.UnitTest
 
             var provider = BlAccessor.GetOutputDataProvider() as IOutputDataProvider;
             Assert.IsNotNull(provider);
-            var data = provider.OutputData;
+            Assert.IsTrue(provider.GetExactaDividend.Count != 0);
         }
 
         [TestMethod]
@@ -101,7 +108,7 @@ namespace ToteBetting.UnitTest
 
             var provider = BlAccessor.GetOutputDataProvider() as IOutputDataProvider;
             Assert.IsNotNull(provider);
-            var data = provider.OutputData;
+            Assert.IsTrue(provider.GetQuinellaDividend.Count != 0);
         }
     }
 }

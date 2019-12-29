@@ -2,7 +2,7 @@
 {
     using System;
     using ToteBetting.BL.Creator;
-    using ToteBetting.BL.Interfaces;
+    using ToteBetting.PL.Interfaces;
     using ToteBetting.PL.Providers;
 
     /// <summary>
@@ -89,19 +89,16 @@
         private static void ProcessUserInput(char userChoice, string userInputValue)
         {
             bool processResult = true;
-            bool reset = false;
             switch (userChoice)
             {
                 case MenuChoiceBet:
-                    processResult = BlAccessor.ProcessBetInput(userInputValue, reset);
+                    processResult = BlAccessor.ProcessBetInput(userInputValue);
                     break;
                 case MenuChoiceResult:
                     processResult = BlAccessor.ProcessResultInput(userInputValue);
-                    reset = false;
                     break;
                 case MenuChoiceDisplay:
                     ProcessDividendOutput();
-                    //reset = true;
                     break;
                 case MenuChoiceReset:
                     BlAccessor.ResetGlobals();
@@ -119,27 +116,11 @@
         /// <summary>
         /// Prepare the dividends data for display
         /// </summary>
-        /// <param name="userInputValue"></param>
         private static void ProcessDividendOutput()
         {
-            IOutputDataProvider outputProvider = BlAccessor.GetOutputDataProvider();
+            IFormattedOutputDataProvider outputProvider = new FormattedOutputDataProvider();
             DisplayOutput(outputProvider.OutputData);
         }
-
-        /// <summary>
-        /// Display the dividends
-        /// </summary>
-        /// <param name="result"></param>
-        /// <param name="ballotRounds"></param>
-        //private static void DisplayDividends(BallotResult result, int ballotRounds)
-        //{
-        //    Console.WriteLine("\nResults after round " + ballotRounds + " ballot count");
-        //    foreach (var kingdomName in result.TieList)
-        //    {
-        //        IKingdom kingdom = BlAccessor.GetKingdom(kingdomName);
-        //        Console.WriteLine("Output: Allies for " + kingdom.KingdomName + ": " + kingdom.AlliesNameList.Count);
-        //    }
-        //}
 
         /// <summary>
         /// Display the error message
