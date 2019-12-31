@@ -2,7 +2,6 @@
 {
     using System;
     using ToteBetting.BL.Creator;
-    using ToteBetting.PL.Interfaces;
     using ToteBetting.PL.Providers;
 
     /// <summary>

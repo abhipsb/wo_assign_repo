@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="OutputDataProviderTest.cs" />
     <Compile Include="ProductDataUnitTest.cs" />
+    <Compile Include="ToteBettingPlUnitTest.cs" />
     <Compile Include="ToteBettingUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,6 +60,10 @@
     <ProjectReference Include="..\ToteBetting.BL\ToteBetting.BL.csproj">
       <Project>{e5716bff-3d4c-40c5-b3e8-cc824828f8c2}</Project>
       <Name>ToteBetting.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToteBetting.PL\ToteBetting.PL.csproj">
+      <Project>{338db322-c7cf-40bb-9f92-da448c11762c}</Project>
+      <Name>ToteBetting.PL</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -1,7 +1,5 @@
-﻿namespace ToteBetting.PL.Interfaces
+﻿namespace ToteBetting.PL.Providers
 {
-    using System.Collections.Generic;
-
     /// <summary>
     /// Interface for providing Output Data
     /// </summary>

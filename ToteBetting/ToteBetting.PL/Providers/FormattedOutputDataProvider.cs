@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using ToteBetting.BL.Creator;
     using ToteBetting.BL.Interfaces;
-    using ToteBetting.PL.Interfaces;
 
     /// <summary>
     /// Class provides formatted data for displaying purpose
@@ -21,73 +20,53 @@
         /// </summary>
         private string GetFormattedDataForOutput()
         {
-            string formattedData = GetFormattedWinDataForOutput() + GetFormattedPlaceDataForOutput() +
-                            GetFormattedExactaDataForOutput() + GetFormattedQuinellaDataForOutput();
+            string formattedData = GetFormattedDataForSingleRunner("Win", outputProvider.GetWinDividend) +
+                                   GetFormattedDataForSingleRunner("Place", outputProvider.GetPlaceDividend) + 
+                                   GetFormattedDataForMultiRunner("Exacta", outputProvider.GetExactaDividend) +
+                                   GetFormattedDataForMultiRunner("Quinella", outputProvider.GetQuinellaDividend);
             return formattedData == string.Empty ? "Not enough data available" : formattedData;
         }
 
-        private string GetFormattedWinDataForOutput()
+        private string GetFormattedDataForSingleRunner(string product, IDictionary<int, double> dividends)
         {
             string formattedData = string.Empty;
-            IDictionary<int, double> dividends = outputProvider.GetWinDividend;
             if (dividends.Count == 0)
             {
                 return formattedData;
             }
 
-            formattedData = "Win - Runner " + dividends.Keys.ToList()[0] + " - " +
-                            dividends.Values.ToList()[0] + "\n";
+            for (int i = 0; i < dividends.Count; i++)
+            {
+                int runner = dividends.Keys.ToList()[i];
+                double dividend = dividends.Values.ToList()[i];
+                if (double.IsNaN(dividend) || double.IsInfinity(dividend))
+                {
+                    dividend = 0;
+                }
+
+                formattedData = formattedData + product + " - Runner " + runner + " - " + dividend + "\n";
+            }
+
             return formattedData;
         }
 
-        private string GetFormattedPlaceDataForOutput()
+        private string GetFormattedDataForMultiRunner(string product, IDictionary<int, double> dividends)
         {
             string formattedData = string.Empty;
-            IDictionary<int, double> dividends = outputProvider.GetWinDividend;
             if (dividends.Count == 0)
             {
                 return formattedData;
             }
 
-            formattedData = formattedData + "Place - Runner " + dividends.Keys.ToList()[0] +
-                            " - " +
-                            dividends.Values.ToList()[0] + "\n";
-            formattedData = formattedData + "Place - Runner " + dividends.Keys.ToList()[1] +
-                            " - " +
-                            dividends.Values.ToList()[1] + "\n";
-            formattedData = formattedData + "Place - Runner " + dividends.Keys.ToList()[2] +
-                            " - " +
-                            dividends.Values.ToList()[2] + "\n";
-            return formattedData;
-        }
-
-        private string GetFormattedExactaDataForOutput()
-        {
-            string formattedData = string.Empty;
-            IDictionary<int, double> dividends = outputProvider.GetWinDividend;
-            if (dividends.Count == 0)
+            int runner1 = dividends.Keys.ToList()[0];
+            int runner2 = dividends.Keys.ToList()[1];
+            double dividend = dividends.Values.ToList()[0];
+            if (double.IsNaN(dividend) || double.IsInfinity(dividend))
             {
-                return formattedData;
+                dividend = 0;
             }
 
-            formattedData = formattedData + "Exacta - Runners " + dividends.Keys.ToList()[0] +
-                            ", " + dividends.Keys.ToList()[1] + " - " +
-                            dividends.Values.ToList()[0] + "\n";
-            return formattedData;
-        }
-
-        private string GetFormattedQuinellaDataForOutput()
-        {
-            string formattedData = string.Empty;
-            IDictionary<int, double> dividends = outputProvider.GetWinDividend;
-            if (dividends.Count == 0)
-            {
-                return formattedData;
-            }
-
-            formattedData = formattedData + "Quinella - Runners " + dividends.Keys.ToList()[0] +
-                            ", " + dividends.Keys.ToList()[1] + " - " +
-                            dividends.Values.ToList()[0] + "\n";
+            formattedData = formattedData + product + " - Runners " + runner1 + ", " + runner2 + " - " + dividend + "\n";
             return formattedData;
         }
     }
