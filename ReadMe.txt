@@ -22,7 +22,7 @@ This is a console based application, developed in Visual Studio 2017 environment
 	-> the input prompt will continue untill you input exit
 	NOTE: Every accepted input is stored and accumulated in memory.		
 
--> 2.1.2 Pressing number key 1 will open the page to input the result
+-> 2.1.2 Pressing number key 2 will open the page to input the result
 	-> input the result in the prescribed format and press Enter key
 		-> if the input is accepted, system will prompt for input again
 		-> if the input is not accepted, system will show error "Invalid Input" and prompt for input again
@@ -58,7 +58,7 @@ There are 4 assenblies in the solution i.e ToteBetting.PL, ToteBetting.BL, ToteB
 	-> Four different classes implemented to calculate dividends for each product type i.e. ExactaCalculator, PlaceCalculator, QuinellaCalculator, and WinCalculator
 	-> The InstanceCreator class is a kind of factory which creates instances of different classes.
 	-> ParserProvider class is used to get appropriate parser as per the input e.g. parser for bet or result inputs.
-	-> OutputDataProvider class provides the formatted data about dividends for display purpose.
+	-> OutputDataProvider class provides the dividends of each product for display purpose.
 	-> The class BlAccessor provides functionality for interfacing with PL or any external component e.g. Unit Tests.
 
 3.3 ToteBetting.DL [dll]
@@ -67,7 +67,7 @@ There are 4 assenblies in the solution i.e ToteBetting.PL, ToteBetting.BL, ToteB
 	-> Currently all the bets data is stored unsing List collection.
 	-> The access to the data store is provided via an interface IDataStore.
 	-> The InstanceCreator class creates the instance of the ListCollectionDataStore.
-	-> The class BlAccessor provides functionality for interfacing with BL or any external component.
+	-> The class DlAccessor provides functionality for interfacing with BL or any external component.
 
 3.4 ToteBetting.UnitTest [dll]
 	-> This is the Unit Test assembly.
