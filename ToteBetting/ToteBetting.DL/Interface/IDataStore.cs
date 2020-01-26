@@ -1,4 +1,5 @@
-﻿namespace ToteBetting.DL.Interface
+// This is comment
+namespace ToteBetting.DL.Interface
 {
     using System.Collections.Generic;
 
